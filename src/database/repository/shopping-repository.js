@@ -73,12 +73,13 @@ class ShoppingRepository {
   }
 
   async Orders(customerId, orderId) {
+    // console.log(customerId, orderId);
     if (orderId) {
-      return OrderModel.findOne({ _id: orderId });
+        return OrderModel.findOne({ _id: orderId, customerId: customerId });
     } else {
-      return OrderModel.find({ customerId });
+        return OrderModel.find({ customerId });
     }
-  }
+}
 
   async CreateNewOrder(customerId, txnId) {
     const cart = await CartModel.findOne({ customerId: customerId });

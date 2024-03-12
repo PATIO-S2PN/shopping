@@ -45,7 +45,7 @@ module.exports = (app, channel) => {
   });
   app.delete("/wishlist/:id", UserAuth, async (req, res, next) => {
     const { _id } = req.user;
-     const product_id = req.params.id;
+    const product_id = req.params.id;
     const data = await service.RemoveFromWishlist(_id, product_id);
     return res.status(200).json(data);
   });
@@ -60,15 +60,16 @@ module.exports = (app, channel) => {
 
   app.get("/order/:id", UserAuth, async (req, res, next) => {
     const { _id } = req.user;
-    const data = await service.GetOrder(_id);
+    const orderId = req.params.id;
+    const data = await service.GetOrder(_id, orderId);
     return res.status(200).json(data);
-  });
+});
 
-  app.get("/orders", UserAuth, async (req, res, next) => {
+app.get("/orders", UserAuth, async (req, res, next) => {
     const { _id } = req.user;
     const data = await service.GetOrders(_id);
     return res.status(200).json(data);
-  });
+});
 
   app.get("/whoami", (req, res, next) => {
     return res.status(200).json({ msg: "/shoping : I am Shopping Service" });

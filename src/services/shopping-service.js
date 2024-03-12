@@ -75,13 +75,13 @@ class ShoppingService {
     return this.repository.CreateNewOrder(customerId, txnNumber);
   }
 
-  async GetOrder(orderId) {
-    return this.repository.Orders("", orderId);
-  }
+  async GetOrder(customerId, orderId) {
+    return this.repository.Orders(customerId, orderId);
+}
 
-  async GetOrders(customerId) {
+async GetOrders(customerId) {
     return this.repository.Orders(customerId);
-  }
+}
 
   async ManageCart(customerId, item, qty, isRemove) {
     const cartResult = await this.repository.AddCartItem(
