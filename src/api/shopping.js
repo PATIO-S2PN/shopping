@@ -2,6 +2,7 @@ const ShoppingService = require("../services/shopping-service");
 const { PublishCustomerEvent, SubscribeMessage } = require("../utils");
 const UserAuth = require("./middlewares/auth");
 const { CUSTOMER_SERVICE } = require("../config");
+const { ADMIN_SERVICE } = require("../config");
 const { PublishMessage } = require("../utils");
 
 module.exports = (app, channel) => {
@@ -69,6 +70,20 @@ app.get("/orders", UserAuth, async (req, res, next) => {
     const { _id } = req.user;
     const data = await service.GetOrders(_id);
     return res.status(200).json(data);
+});
+
+app.patch("/order/:id/status", UserAuth, async (req, res, next) => {
+  const { _id: customerId } = req.user;
+  const { id: orderId } = req.params;
+  const { newStatus } = req.body;
+
+  try {
+      const data = await service.UpdateOrderStatus(customerId, orderId, newStatus);
+      return res.status(200).json(data);
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: error.message || "An error occurred" });
+  }
 });
 
   app.get("/whoami", (req, res, next) => {

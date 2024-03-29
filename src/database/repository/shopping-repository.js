@@ -68,6 +68,16 @@ class ShoppingRepository {
     }
   }
 
+  async UpdateOrderStatus(orderId, customerId, newStatus) {
+    const order = await OrderModel.findOne({ orderId, customerId });
+    if (order) {
+        order.status = newStatus;
+        return await order.save();
+    } else {
+        throw new Error("Order not found!");
+    }
+}
+
   async GetWishlistByCustomerId(customerId) {
     return WishlistModel.findOne({ customerId });
   }

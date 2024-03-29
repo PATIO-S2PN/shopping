@@ -79,6 +79,10 @@ class ShoppingService {
     return this.repository.Orders(customerId, orderId);
 }
 
+  async UpdateOrderStatus(customerId, orderId, newStatus) {
+    return this.repository.UpdateOrderStatus(orderId, customerId, newStatus);
+}
+
 async GetOrders(customerId) {
     return this.repository.Orders(customerId);
 }
