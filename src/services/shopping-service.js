@@ -77,15 +77,19 @@ class ShoppingService {
 
   async GetOrder(customerId, orderId) {
     return this.repository.Orders(customerId, orderId);
-}
+  }
 
   async UpdateOrderStatus(customerId, orderId, newStatus) {
     return this.repository.UpdateOrderStatus(orderId, customerId, newStatus);
-}
+  }
 
-async GetOrders(customerId) {
+  async GetOrders(customerId) {
     return this.repository.Orders(customerId);
-}
+  }
+
+  async GetAllOrders() {
+    return this.repository.GetAllOrders();
+  }
 
   async ManageCart(customerId, item, qty, isRemove) {
     const cartResult = await this.repository.AddCartItem(

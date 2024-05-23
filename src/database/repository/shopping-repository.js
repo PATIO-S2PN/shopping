@@ -91,6 +91,10 @@ class ShoppingRepository {
     }
 }
 
+  async GetAllOrders() {
+    return OrderModel.find({});
+  }
+
   async CreateNewOrder(customerId, txnId) {
     const cart = await CartModel.findOne({ customerId: customerId });
 
