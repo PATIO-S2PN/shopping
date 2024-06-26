@@ -69,7 +69,7 @@ class ShoppingRepository {
   }
 
   async UpdateOrderStatus(orderId, customerId, newStatus) {
-    const order = await OrderModel.findOne({ orderId, customerId });
+    const order = await OrderModel.findOne({ _id: orderId });
     if (order) {
         order.status = newStatus;
         return await order.save();
