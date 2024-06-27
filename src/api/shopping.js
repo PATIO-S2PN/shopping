@@ -72,6 +72,15 @@ app.get("/orders", UserAuth, async (req, res, next) => {
     return res.status(200).json(data);
 });
 
+app.get("/orders/all", UserAuth, async (req, res, next) => {
+  try {
+    const data = await service.GetAllOrders();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 app.patch("/order/:id/status", UserAuth, async (req, res, next) => {
   const { _id: customerId } = req.user;
   const { id: orderId } = req.params;
